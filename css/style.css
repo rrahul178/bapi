@@ -4,12 +4,13 @@
    ============================================================ */
 :root{
   /* Color */
-  --green-deep:   #0F2A47;   /* primary — header, nav, footer */
-  --green-ink:    #14385C;   /* secondary panels */
-  --paper:       #F6F7F4;   /* page background */
+  --green-deep:   #0A8A40;   /* primary — header, nav, footer (from BAPI logo ring) */
+  --green-ink:    #076B34;   /* secondary panels, darker green */
+  --paper:       #FAFAF6;   /* page background */
   --paper-raised:#FFFFFF;   /* card background */
-  --green-bright:        #1E8A72;   /* accent — links, CTAs, capsule half */
-  --gold:       #C9862C;   /* eyebrow / tag accent, used sparingly */
+  --green-bright:        #12A34A;   /* accent — links, hover, capsule half */
+  --yellow:      #FFD400;   /* logo yellow — used on dark green backgrounds */
+  --gold:       #9A6A00;   /* muted gold — text/borders on light backgrounds (readable on white) */
   --ink:         #1E2732;   /* body text */
   --ink-soft:    #57636F;   /* secondary text */
   --line:        #DEE3DD;   /* hairline borders */
