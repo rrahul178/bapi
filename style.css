@@ -1,0 +1,352 @@
+/* ============================================================
+   BAPI — Bangladesh Association of Pharmaceutical Industries
+   Design tokens
+   ============================================================ */
+:root{
+  /* Color */
+  --navy-deep:   #0F2A47;   /* primary — header, nav, footer */
+  --navy-ink:    #14385C;   /* secondary panels */
+  --paper:       #F6F7F4;   /* page background */
+  --paper-raised:#FFFFFF;   /* card background */
+  --teal:        #1E8A72;   /* accent — links, CTAs, capsule half */
+  --amber:       #C9862C;   /* eyebrow / tag accent, used sparingly */
+  --ink:         #1E2732;   /* body text */
+  --ink-soft:    #57636F;   /* secondary text */
+  --line:        #DEE3DD;   /* hairline borders */
+
+  /* Type */
+  --font-display: "Source Serif 4", "Georgia", serif;
+  --font-body: "Public Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
+
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.05rem);
+  --step-1: clamp(1.2rem, 1.1rem + 0.5vw, 1.4rem);
+  --step-2: clamp(1.6rem, 1.4rem + 1vw, 2.1rem);
+  --step-3: clamp(2.1rem, 1.7rem + 2vw, 3.2rem);
+  --step-4: clamp(2.6rem, 2rem + 3vw, 4.4rem);
+
+  --radius-pill: 999px;
+  --radius-card: 4px;
+  --max-w: 1180px;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:var(--step-0);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:var(--teal);text-decoration:none;}
+a:hover{text-decoration:underline;}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
+  outline:3px solid var(--amber);
+  outline-offset:2px;
+}
+h1,h2,h3,h4{
+  font-family:var(--font-display);
+  font-weight:600;
+  line-height:1.15;
+  margin:0 0 .5em;
+  color:var(--navy-deep);
+}
+p{margin:0 0 1em;}
+.wrap{max-width:var(--max-w);margin:0 auto;padding:0 24px;}
+
+/* ---------- Signature element: the capsule divider ----------
+   An abstract two-tone capsule stands in for the pharma subject
+   throughout the site: nav underline, section breaks, list markers. */
+.capsule-rule{
+  display:flex;
+  height:6px;
+  width:64px;
+  border-radius:var(--radius-pill);
+  overflow:hidden;
+  margin:0 0 20px;
+}
+.capsule-rule span{flex:1;}
+.capsule-rule span:first-child{background:var(--navy-deep);}
+.capsule-rule span:last-child{background:var(--teal);}
+.capsule-rule.center{margin-inline:auto;}
+
+/* ---------- Header / Nav ---------- */
+.site-header{
+  background:var(--navy-deep);
+  color:#fff;
+  position:sticky;
+  top:0;
+  z-index:50;
+  box-shadow:0 1px 0 rgba(255,255,255,.08);
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  padding:16px 24px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:#fff;
+  text-decoration:none;
+}
+.brand:hover{text-decoration:none;}
+.brand-mark{
+  width:34px;height:34px;border-radius:var(--radius-pill);
+  background:linear-gradient(90deg, var(--teal) 0 50%, var(--amber) 50% 100%);
+  flex:none;
+}
+.brand-text{line-height:1.2;}
+.brand-text strong{display:block;font-family:var(--font-display);font-size:1.05rem;letter-spacing:.02em;}
+.brand-text span{display:block;font-size:.72rem;color:#B9C6D3;letter-spacing:.04em;text-transform:uppercase;}
+
+.nav{display:flex;gap:4px;flex-wrap:wrap;}
+.nav a{
+  color:#DCE5EC;
+  font-size:.92rem;
+  padding:8px 16px;
+  border-radius:var(--radius-pill);
+  transition:background .15s ease, color .15s ease;
+}
+.nav a:hover{background:rgba(255,255,255,.1);color:#fff;text-decoration:none;}
+.nav a[aria-current="page"]{background:var(--teal);color:#fff;}
+.nav-toggle{display:none;}
+
+@media (max-width:860px){
+  .nav-toggle{
+    display:inline-flex;align-items:center;justify-content:center;
+    background:transparent;border:1px solid rgba(255,255,255,.3);
+    color:#fff;border-radius:var(--radius-card);padding:8px 12px;
+    font-size:.9rem;cursor:pointer;
+  }
+  .nav{
+    display:none;
+    width:100%;flex-direction:column;gap:2px;
+    padding:8px 0 4px;
+  }
+  .nav.open{display:flex;}
+  .header-inner{flex-wrap:wrap;}
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  background:
+    radial-gradient(1100px 420px at 85% -10%, rgba(30,138,114,.35), transparent 60%),
+    var(--navy-deep);
+  color:#fff;
+  padding:96px 0 88px;
+}
+.hero .eyebrow{
+  font-family:var(--font-mono);
+  font-size:.78rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--amber);
+  display:block;
+  margin-bottom:18px;
+}
+.hero h1{
+  color:#fff;
+  font-size:var(--step-4);
+  max-width:16ch;
+  margin-bottom:22px;
+}
+.hero p.lead{
+  color:#C9D4DD;
+  font-size:var(--step-1);
+  max-width:56ch;
+  margin-bottom:32px;
+}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+
+.btn{
+  display:inline-block;
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:.95rem;
+  padding:12px 26px;
+  border-radius:var(--radius-pill);
+  border:1px solid transparent;
+  cursor:pointer;
+}
+.btn:hover{text-decoration:none;}
+.btn-primary{background:var(--teal);color:#fff;}
+.btn-primary:hover{background:#177563;}
+.btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.4);}
+.btn-ghost:hover{background:rgba(255,255,255,.1);}
+.btn-outline{background:transparent;color:var(--navy-deep);border-color:var(--navy-deep);}
+.btn-outline:hover{background:var(--navy-deep);color:#fff;}
+
+/* ---------- Stat band ---------- */
+.stat-band{
+  background:var(--paper-raised);
+  border-bottom:1px solid var(--line);
+}
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+}
+.stat{
+  padding:36px 24px;
+  border-left:1px solid var(--line);
+  text-align:left;
+}
+.stat:first-child{border-left:none;}
+.stat .num{
+  font-family:var(--font-display);
+  font-size:var(--step-3);
+  color:var(--navy-deep);
+  display:block;
+}
+.stat .label{
+  font-size:.85rem;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+@media (max-width:760px){
+  .stat-grid{grid-template-columns:repeat(2,1fr);}
+  .stat{border-left:none;border-top:1px solid var(--line);}
+  .stat:nth-child(1),.stat:nth-child(2){border-top:none;}
+}
+
+/* ---------- Sections ---------- */
+section{padding:80px 0;}
+section.tight{padding:56px 0;}
+.section-head{max-width:64ch;margin-bottom:44px;}
+.section-head .eyebrow-dark{
+  font-family:var(--font-mono);
+  font-size:.78rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--teal);
+  display:block;
+  margin-bottom:10px;
+}
+.section-alt{background:var(--paper-raised);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+
+/* Card grid */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+.grid-2{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:start;}
+@media (max-width:860px){.grid-3{grid-template-columns:1fr;}.grid-2{grid-template-columns:1fr;gap:32px;}}
+
+.card{
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+  border-radius:var(--radius-card);
+  padding:28px;
+}
+.card h3{font-size:var(--step-1);margin-bottom:10px;}
+.card p{color:var(--ink-soft);margin-bottom:0;}
+
+/* ---------- Register / list rows (notices, publications, events) ---------- */
+.register{border-top:1px solid var(--line);}
+.register-row{
+  display:grid;
+  grid-template-columns:120px 1fr auto;
+  gap:20px;
+  align-items:start;
+  padding:22px 0;
+  border-bottom:1px solid var(--line);
+}
+.register-row .ref{
+  font-family:var(--font-mono);
+  font-size:.8rem;
+  color:var(--ink-soft);
+  padding-top:3px;
+}
+.register-row .ref .date{display:block;color:var(--navy-deep);font-weight:600;margin-bottom:2px;}
+.register-row h3{font-size:1.05rem;margin-bottom:6px;}
+.register-row p{color:var(--ink-soft);margin-bottom:0;font-size:.92rem;}
+.tag{
+  display:inline-block;
+  font-family:var(--font-mono);
+  font-size:.7rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--amber);
+  border:1px solid var(--amber);
+  border-radius:var(--radius-pill);
+  padding:3px 10px;
+  margin-bottom:8px;
+}
+.register-row .action{align-self:center;white-space:nowrap;font-size:.88rem;}
+@media (max-width:640px){
+  .register-row{grid-template-columns:1fr;}
+  .register-row .action{justify-self:start;}
+}
+
+/* ---------- Team / leadership ---------- */
+.person{display:flex;gap:16px;align-items:flex-start;padding:20px 0;border-bottom:1px solid var(--line);}
+.person:last-child{border-bottom:none;}
+.person .avatar{
+  width:52px;height:52px;border-radius:var(--radius-pill);flex:none;
+  background:linear-gradient(135deg,var(--navy-ink),var(--teal));
+}
+.person h4{margin:0 0 2px;font-size:1rem;font-family:var(--font-body);font-weight:700;color:var(--navy-deep);}
+.person span{font-size:.85rem;color:var(--ink-soft);}
+
+/* ---------- CTA band ---------- */
+.cta-band{
+  background:var(--navy-deep);
+  color:#fff;
+  padding:64px 0;
+  text-align:center;
+}
+.cta-band h2{color:#fff;}
+.cta-band p{color:#C9D4DD;max-width:52ch;margin:0 auto 28px;}
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--navy-ink);color:#C9D4DD;padding:56px 0 28px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+.footer-grid h4{color:#fff;font-family:var(--font-body);font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;}
+.footer-grid ul{list-style:none;margin:0;padding:0;}
+.footer-grid li{margin-bottom:8px;}
+.footer-grid a{color:#C9D4DD;font-size:.92rem;}
+.footer-grid a:hover{color:#fff;}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.12);
+  padding-top:22px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  font-size:.8rem;color:#93A2AF;
+}
+@media (max-width:760px){.footer-grid{grid-template-columns:1fr;}}
+
+/* ---------- Contact page ---------- */
+.contact-card{background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-card);padding:32px;}
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:.85rem;font-weight:600;color:var(--navy-deep);margin-bottom:6px;}
+.field input,.field textarea{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:var(--radius-card);
+  padding:11px 14px;
+  font-family:var(--font-body);
+  font-size:.95rem;
+  background:#fff;
+  color:var(--ink);
+}
+.field textarea{resize:vertical;min-height:120px;}
+.info-row{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);}
+.info-row:last-child{border-bottom:none;}
+.info-row .k{width:120px;flex:none;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);}
+.info-row .v{font-size:.95rem;}
+
+/* ---------- Breadcrumb / page header ---------- */
+.page-header{background:var(--navy-deep);color:#fff;padding:56px 0;}
+.page-header .eyebrow{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:14px;}
+.page-header h1{color:#fff;margin-bottom:0;}
+.page-header p{color:#C9D4DD;margin-top:14px;max-width:60ch;}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+}
