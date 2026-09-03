@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BAPI — Bangladesh Association of Pharmaceutical Industries</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F7F1;
+    --bg-alt:#EBEEE1;
+    --ink:#132420;
+    --ink-soft:#4B5A52;
+    --teal:#1B6F5C;
+    --teal-deep:#0E3F34;
+    --gold:#AE8A2E;
+    --line:#D7DBCB;
+    --white:#FFFFFF;
+    --serif:'Newsreader', Georgia, serif;
+    --sans:'Inter', -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  @media(max-width:640px){.wrap{padding:0 20px;}}
+
+  h1,h2,h3,h4{font-family:var(--serif); font-weight:500; letter-spacing:-0.01em; color:var(--ink);}
+
+  /* Focus visibility */
+  a:focus-visible, button:focus-visible{outline:2px solid var(--teal); outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(246,247,241,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 0;
+  }
+  .brand{display:flex; flex-direction:column; line-height:1.1;}
+  .brand .mark{font-family:var(--serif); font-size:1.55rem; font-weight:600; color:var(--teal-deep);}
+  .brand .tagline{font-size:0.68rem; letter-spacing:0.03em; color:var(--ink-soft); margin-top:2px;}
+
+  nav.primary{display:flex; align-items:center; gap:2px;}
+  nav.primary > ul{list-style:none; display:flex; gap:4px;}
+  nav.primary > ul > li{position:relative;}
+  nav.primary > ul > li > a, nav.primary > ul > li > button{
+    display:inline-block; padding:10px 14px; font-size:0.92rem; font-weight:500;
+    color:var(--ink); border-radius:6px; background:none; border:none; cursor:pointer; font-family:var(--sans);
+  }
+  nav.primary > ul > li > a:hover, nav.primary > ul > li > button:hover{color:var(--teal-deep); background:var(--bg-alt);}
+  .submenu{
+    position:absolute; top:calc(100% + 6px); left:0; min-width:230px;
+    background:var(--white); border:1px solid var(--line); border-radius:10px;
+    padding:8px; box-shadow:0 12px 28px rgba(19,36,32,0.12);
+    opacity:0; visibility:hidden; transform:translateY(-6px);
+    transition:opacity .16s ease, transform .16s ease, visibility .16s;
+  }
+  nav.primary > ul > li:hover .submenu,
+  nav.primary > ul > li:focus-within .submenu,
+  nav.primary > ul > li.open .submenu{
+    opacity:1; visibility:visible; transform:translateY(0);
+  }
+  .submenu a{display:block; padding:9px 12px; border-radius:6px; font-size:0.88rem; color:var(--ink-soft);}
+  .submenu a:hover{background:var(--bg-alt); color:var(--teal-deep);}
+  .contact-btn{
+    margin-left:8px; padding:10px 18px; background:var(--teal); color:var(--white);
+    border-radius:24px; font-size:0.88rem; font-weight:600; white-space:nowrap;
+  }
+  .contact-btn:hover{background:var(--teal-deep);}
+
+  .menu-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+  .menu-toggle span{display:block; width:22px; height:2px; background:var(--ink); margin:5px 0; transition:transform .2s, opacity .2s;}
+
+  @media(max-width:960px){
+    nav.primary{display:none;}
+    .menu-toggle{display:block;}
+    .contact-btn{display:none;}
+  }
+
+  /* mobile drawer */
+  .mobile-nav{
+    display:none; flex-direction:column; gap:2px; padding:12px 0 20px;
+    border-top:1px solid var(--line);
+  }
+  .mobile-nav.show{display:flex;}
+  .mobile-nav a, .mobile-nav summary{
+    padding:12px 4px; font-size:0.98rem; font-weight:500; border-bottom:1px solid var(--line); cursor:pointer;
+  }
+  .mobile-nav details ul{list-style:none; padding-left:14px;}
+  .mobile-nav details a{border-bottom:1px solid var(--line); font-size:0.9rem; color:var(--ink-soft); font-weight:400;}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:76px 0 64px; position:relative; overflow:hidden;}
+  .hero .wrap{display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:end;}
+  @media(max-width:900px){.hero .wrap{grid-template-columns:1fr; gap:40px;}}
+
+  .hero .kicker{
+    font-size:0.95rem; color:var(--teal-deep); font-weight:600; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .hero .kicker::before{content:""; width:26px; height:1px; background:var(--gold);}
+  .hero h1{font-size:clamp(2.3rem, 4.6vw, 3.6rem); line-height:1.08; max-width:15ch;}
+  .hero h1 em{font-style:italic; color:var(--teal-deep);}
+  .hero p.lede{margin-top:22px; font-size:1.08rem; color:var(--ink-soft); max-width:46ch;}
+  .hero .cta-row{margin-top:32px; display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; padding:13px 24px; border-radius:26px;
+    font-size:0.94rem; font-weight:600; border:1px solid transparent; cursor:pointer;
+  }
+  .btn-solid{background:var(--teal-deep); color:var(--white);}
+  .btn-solid:hover{background:var(--teal);}
+  .btn-line{border-color:var(--line); color:var(--ink);}
+  .btn-line:hover{border-color:var(--teal-deep); color:var(--teal-deep);}
+
+  .hero-figure{
+    background:var(--teal-deep); border-radius:18px; padding:34px 30px;
+    color:var(--white); position:relative;
+  }
+  .hero-figure .since{font-size:0.82rem; letter-spacing:0.02em; color:#BFE0D6; margin-bottom:6px;}
+  .hero-figure .big{font-family:var(--serif); font-size:3.2rem; line-height:1; color:var(--white);}
+  .hero-figure .unit{font-size:1.1rem; color:#BFE0D6; margin-left:2px;}
+  .hero-figure .desc{margin-top:10px; font-size:0.92rem; color:#D8ECE5; max-width:30ch;}
+  .hero-figure .divider{height:1px; background:rgba(255,255,255,0.18); margin:22px 0;}
+  .hero-figure .mini-row{display:flex; justify-content:space-between; gap:14px;}
+  .hero-figure .mini h4{font-family:var(--serif); font-size:1.5rem; color:var(--white); font-weight:500;}
+  .hero-figure .mini span{font-size:0.76rem; color:#9FC8BC; display:block; margin-top:2px;}
+
+  /* ---------- Intro / Who we are ---------- */
+  .intro{padding:70px 0; border-top:1px solid var(--line);}
+  .intro .wrap{display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px;}
+  @media(max-width:860px){.intro .wrap{grid-template-columns:1fr; gap:28px;}}
+  .intro h2{font-size:1.8rem; max-width:14ch;}
+  .intro .body p{color:var(--ink-soft); margin-bottom:14px; max-width:58ch;}
+  .intro .body a.readmore{color:var(--teal-deep); font-weight:600; font-size:0.92rem; border-bottom:1px solid var(--gold); padding-bottom:1px;}
+
+  /* ---------- Stats / Glance ---------- */
+  .glance{background:var(--teal-deep); color:var(--white); padding:64px 0;}
+  .glance-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:44px;}
+  .glance-head h2{color:var(--white); font-size:1.9rem; max-width:20ch;}
+  .glance-head p{color:#BFE0D6; max-width:40ch; font-size:0.95rem;}
+  .stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(255,255,255,0.14); border-radius:14px; overflow:hidden;}
+  @media(max-width:800px){.stat-grid{grid-template-columns:repeat(2,1fr);}}
+  .stat{background:var(--teal-deep); padding:30px 26px;}
+  .stat .num{font-family:var(--serif); font-size:2.5rem; color:var(--white); display:flex; align-items:baseline; gap:2px;}
+  .stat .num .suffix{font-size:1.4rem; color:#BFE0D6;}
+  .stat .label{margin-top:8px; font-size:0.86rem; color:#9FC8BC;}
+
+  /* ---------- Overview split ---------- */
+  .overview{padding:78px 0; border-top:1px solid var(--line);}
+  .overview .wrap{display:grid; grid-template-columns:0.95fr 1.05fr; gap:56px; align-items:center;}
+  @media(max-width:860px){.overview .wrap{grid-template-columns:1fr;}}
+  .overview .frame{border-radius:16px; overflow:hidden; border:1px solid var(--line); aspect-ratio:4/3.1;}
+  .overview .frame img{width:100%; height:100%; object-fit:cover;}
+  .overview .eyebrow-line{width:26px; height:1px; background:var(--gold); margin-bottom:16px;}
+  .overview h2{font-size:1.8rem; margin-bottom:16px; max-width:16ch;}
+  .overview p{color:var(--ink-soft); margin-bottom:16px; max-width:52ch;}
+
+  /* ---------- Footprint band ---------- */
+  .footprint{background:var(--bg-alt); padding:78px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .footprint .wrap{display:grid; grid-template-columns:1fr 1fr; gap:56px;}
+  @media(max-width:860px){.footprint .wrap{grid-template-columns:1fr;}}
+  .footprint h2{font-size:1.8rem; max-width:15ch;}
+  .footprint .lead-num{font-family:var(--serif); font-size:3.4rem; color:var(--teal-deep); margin:18px 0 6px;}
+  .footprint .lead-num span{font-size:1.3rem; color:var(--ink-soft);}
+  .footprint p{color:var(--ink-soft); max-width:50ch;}
+  .opps-list{list-style:none; display:flex; flex-direction:column; gap:0;}
+  .opps-list li{
+    padding:18px 0; border-bottom:1px solid var(--line); color:var(--ink-soft); font-size:0.98rem;
+    display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:baseline;
+  }
+  .opps-list li:first-child{padding-top:0;}
+  .opps-list li::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--gold); margin-top:8px;}
+
+  /* ---------- API Park ---------- */
+  .apipark{padding:78px 0;}
+  .apipark .head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:40px;}
+  .apipark h2{font-size:1.9rem; max-width:16ch;}
+  .apipark .head p{color:var(--ink-soft); max-width:40ch; font-size:0.95rem;}
+  .apipark-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden;}
+  @media(max-width:860px){.apipark-grid{grid-template-columns:1fr;}}
+  .apipark-grid > div{background:var(--white); padding:34px;}
+  .apipark-grid h3{font-size:1.2rem; margin-bottom:12px;}
+  .apipark-grid p{color:var(--ink-soft); font-size:0.95rem; margin-bottom:10px;}
+  .plot-stats{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:6px;}
+  .plot-stats div .n{font-family:var(--serif); font-size:1.6rem; color:var(--teal-deep);}
+  .plot-stats div .l{font-size:0.78rem; color:var(--ink-soft); margin-top:2px;}
+
+  /* ---------- Media (events + news) ---------- */
+  .media-sec{padding:78px 0; border-top:1px solid var(--line);}
+  .media-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px;}
+  @media(max-width:860px){.media-grid{grid-template-columns:1fr; gap:44px;}}
+  .media-col h3{font-size:1.35rem; display:flex; justify-content:space-between; align-items:baseline; margin-bottom:20px;}
+  .media-col h3 a{font-size:0.8rem; font-family:var(--sans); font-weight:600; color:var(--teal-deep);}
+  .media-item{padding:16px 0; border-bottom:1px solid var(--line); display:flex; gap:14px;}
+  .media-item .date{font-size:0.76rem; color:var(--gold); font-weight:600; white-space:nowrap; min-width:64px;}
+  .media-item .title{font-size:0.95rem; color:var(--ink);}
+  .media-item .title span{display:block; font-size:0.82rem; color:var(--ink-soft); margin-top:3px;}
+
+  /* ---------- CTA band ---------- */
+  .cta-band{background:var(--white); border:1px solid var(--line); border-radius:18px; padding:48px; margin:0 auto 78px; max-width:1180px; text-align:left;
+    display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;}
+  .cta-band h2{font-size:1.6rem; max-width:20ch;}
+  .cta-band p{color:var(--ink-soft); margin-top:8px; max-width:44ch; font-size:0.95rem;}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--teal-deep); color:#CFE6DE; padding:64px 0 28px;}
+  .footer-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:40px; padding-bottom:40px; border-bottom:1px solid rgba(255,255,255,0.14);}
+  @media(max-width:860px){.footer-grid{grid-template-columns:1fr 1fr; row-gap:36px;}}
+  @media(max-width:520px){.footer-grid{grid-template-columns:1fr;}}
+  .footer-grid h4{color:var(--white); font-family:var(--sans); font-size:0.82rem; letter-spacing:0.02em; margin-bottom:16px; font-weight:600;}
+  .footer-grid ul{list-style:none; display:flex; flex-direction:column; gap:10px;}
+  .footer-grid a{font-size:0.88rem; color:#AFD3C7;}
+  .footer-grid a:hover{color:var(--white);}
+  .foot-brand .mark{font-family:var(--serif); font-size:1.5rem; color:var(--white); margin-bottom:10px;}
+  .foot-brand p{font-size:0.85rem; color:#9FC8BC; max-width:32ch; margin-bottom:16px;}
+  .foot-social{display:flex; gap:10px;}
+  .foot-social a{
+    width:34px; height:34px; border:1px solid rgba(255,255,255,0.22); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:0.78rem; color:var(--white);
+  }
+  .foot-social a:hover{background:rgba(255,255,255,0.12);}
+  .foot-bottom{display:flex; justify-content:space-between; padding-top:22px; font-size:0.8rem; color:#8FBBAE; flex-wrap:wrap; gap:10px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap topbar">
+    <a class="brand" href="#top">
+      <span class="mark">BAPI</span>
+      <span class="tagline">Bangladesh Association of Pharmaceutical Industries</span>
+    </a>
+
+    <nav class="primary" aria-label="Primary">
+      <ul>
+        <li><a href="#top">Home</a></li>
+        <li>
+          <button aria-haspopup="true">About</button>
+          <div class="submenu">
+            <a href="#">History of BAPI</a>
+            <a href="#">Role of BAPI</a>
+            <a href="#">Executive Committee</a>
+            <a href="#">Advisory Committee</a>
+            <a href="#">President &amp; Secretaries</a>
+            <a href="#">Milestones</a>
+          </div>
+        </li>
+        <li>
+          <button aria-haspopup="true">Pharma Industry</button>
+          <div class="submenu">
+            <a href="#">Overview</a>
+            <a href="#">Global Footprint</a>
+            <a href="#">Prospect &amp; Opportunities</a>
+            <a href="#">Advantages of TRIPS</a>
+          </div>
+        </li>
+        <li><a href="#">Members Directory</a></li>
+        <li>
+          <button aria-haspopup="true">API Park</button>
+          <div class="submenu">
+            <a href="#">Brief Outline</a>
+            <a href="#">Plant Layout</a>
+          </div>
+        </li>
+        <li>
+          <button aria-haspopup="true">Media</button>
+          <div class="submenu">
+            <a href="#">Events</a>
+            <a href="#">Latest News</a>
+            <a href="#">Photo Gallery</a>
+            <a href="#">International Events</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <a class="contact-btn" href="#">Contact</a>
+    <button class="menu-toggle" aria-label="Toggle menu" id="menuToggle">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="wrap">
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#top">Home</a>
+      <details><summary>About</summary>
+        <ul>
+          <li><a href="#">History of BAPI</a></li>
+          <li><a href="#">Role of BAPI</a></li>
+          <li><a href="#">Executive Committee</a></li>
+          <li><a href="#">Milestones</a></li>
+        </ul>
+      </details>
+      <details><summary>Pharma Industry</summary>
+        <ul>
+          <li><a href="#">Overview</a></li>
+          <li><a href="#">Global Footprint</a></li>
+          <li><a href="#">Prospect &amp; Opportunities</a></li>
+        </ul>
+      </details>
+      <a href="#">Members Directory</a>
+      <details><summary>API Park</summary>
+        <ul>
+          <li><a href="#">Brief Outline</a></li>
+          <li><a href="#">Plant Layout</a></li>
+        </ul>
+      </details>
+      <details><summary>Media</summary>
+        <ul>
+          <li><a href="#">Events</a></li>
+          <li><a href="#">Latest News</a></li>
+          <li><a href="#">Photo Gallery</a></li>
+        </ul>
+      </details>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="kicker">Since 1972 — Dhaka, Bangladesh</div>
+        <h1>Building an emerging <em>generic drug hub</em> for Asia</h1>
+        <p class="lede">BAPI is the apex body representing Bangladesh's pharmaceutical companies — working with industry and regulators to expand access to affordable, quality medicine at home and abroad.</p>
+        <div class="cta-row">
+          <a class="btn btn-solid" href="#glance">See the industry at a glance</a>
+          <a class="btn btn-line" href="#">About BAPI</a>
+        </div>
+      </div>
+
+      <div class="hero-figure">
+        <div class="since">Current export earnings</div>
+        <div class="big">$169.02<span class="unit">Mn</span></div>
+        <div class="desc">Crossing BDT 14 billion, and still climbing as more manufacturers enter export markets.</div>
+        <div class="divider"></div>
+        <div class="mini-row">
+          <div class="mini"><h4>150+</h4><span>export countries</span></div>
+          <div class="mini"><h4>98%</h4><span>of local demand met</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="wrap">
+      <h2>Who we are</h2>
+      <div class="body">
+        <p>Bangladesh Association of Pharmaceutical Industries (BAPI) is the apex body representing the pharmaceutical companies of Bangladesh. Since its inception in 1972, BAPI has played a key role in developing the pharma sector to promote access to affordable drugs.</p>
+        <p>Working closely with industry and regulatory authorities, the association promotes good manufacturing practice (GMP) and its rightful implementation, to ensure the quality of medicines reaching patients — at home and in the 150+ countries Bangladesh now exports to.</p>
+        <a class="readmore" href="#">Read the full history of BAPI</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLANCE -->
+  <section class="glance" id="glance">
+    <div class="wrap">
+      <div class="glance-head">
+        <h2>BAPI at a glance</h2>
+        <p>Bangladesh has fulfilled a national aspiration — turning an import-based pharmaceutical industry into an exporter of quality medicines.</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="num"><span class="count" data-target="1972">0</span></div>
+          <div class="label">Year founded</div>
+        </div>
+        <div class="stat">
+          <div class="num"><span class="count" data-target="150">0</span><span class="suffix">+</span></div>
+          <div class="label">Exporting countries</div>
+        </div>
+        <div class="stat">
+          <div class="num">$<span class="count" data-target="169">0</span><span class="suffix">Mn</span></div>
+          <div class="label">Annual export earnings</div>
+        </div>
+        <div class="stat">
+          <div class="num"><span class="count" data-target="98">0</span><span class="suffix">%</span></div>
+          <div class="label">Of domestic demand met</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="overview">
+    <div class="wrap">
+      <div class="frame">
+        <img src="https://bapi-bd.com/assets/images/2017/01/12/bapi-over.jpg" alt="Pharmaceutical manufacturing in Bangladesh" loading="lazy">
+      </div>
+      <div>
+        <div class="eyebrow-line"></div>
+        <h2>One of Bangladesh's most advanced technology-driven sectors</h2>
+        <p>Manufacturers here produce almost every category of medicine, including high-tech products like insulin, hormones, and anti-cancer treatments — meeting 98% of the local market's medicinal needs.</p>
+        <p>The industry also exports to 150+ countries, including the USA, UK, Canada, Australia, and the EU, with companies actively expanding their reach into new export markets.</p>
+        <a class="readmore" href="#">Read the full industry overview</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTPRINT + OPPORTUNITIES -->
+  <section class="footprint">
+    <div class="wrap">
+      <div>
+        <h2>Expanding our global footprint</h2>
+        <div class="lead-num">169.02<span> Mn USD</span></div>
+        <p>Export earnings continue to grow, crossing BDT 14 billion. The Bangladesh government has declared pharmaceuticals a "Thrust Sector," and around 1,200 products have received export registration over the past two years — reaching 150+ countries including the USA, UK, Canada, Australia, and the EU.</p>
+        <a class="readmore" href="#" style="display:inline-block; margin-top:6px;">Read more on global footprint</a>
+      </div>
+      <div>
+        <h2 style="margin-bottom:18px;">Competitive edge of Bangladesh pharma</h2>
+        <ul class="opps-list">
+          <li>The global generics market, valued at roughly US $1.06 trillion, is projected to reach $1.30 trillion.</li>
+          <li>Generic drugs continue to grow at a healthy, sustained rate worldwide.</li>
+          <li>Drugs worth more than $200 billion are coming off patent by 2025.</li>
+          <li>Rising healthcare costs, particularly medicine costs, remain a pressing global concern.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- API PARK -->
+  <section class="apipark">
+    <div class="wrap">
+      <div class="head">
+        <h2>API Park</h2>
+        <p>An environmentally suitable industrial park to produce Active Pharmaceutical Ingredients locally.</p>
+      </div>
+      <div class="apipark-grid">
+        <div>
+          <h3>Brief outline</h3>
+          <p>The project is being implemented on 200 acres of land, with 42 plots for Pharmaceutical Ingredient Manufacturing units. It's expected to create around 25,000 jobs once fully operational.</p>
+          <a class="readmore" href="#">Read the full outline</a>
+        </div>
+        <div>
+          <h3>Plant layout</h3>
+          <div class="plot-stats">
+            <div><div class="n">81 ha</div><div class="l">Total land area (200 acres)</div></div>
+            <div><div class="n">$30M</div><div class="l">Overall project cost</div></div>
+            <div><div class="n">2018</div><div class="l">Plots handed over</div></div>
+            <div><div class="n">$300M</div><div class="l">Local investment lined up</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA -->
+  <section class="media-sec">
+    <div class="wrap media-grid">
+      <div class="media-col">
+        <h3>Events <a href="#">View all</a></h3>
+        <div class="media-item">
+          <div class="date">Loading</div>
+          <div class="title">Upcoming events will appear here<span>Connect a events feed to populate this list</span></div>
+        </div>
+      </div>
+      <div class="media-col">
+        <h3>Latest news <a href="#">View all</a></h3>
+        <div class="media-item">
+          <div class="date">Loading</div>
+          <div class="title">Latest industry news will appear here<span>Connect a news feed to populate this list</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="cta-band">
+      <div>
+        <h2>Explore Bangladesh's pharmaceutical landscape</h2>
+        <p>See member companies, industry data, and the regulatory context behind one of Asia's fastest-growing generics hubs.</p>
+      </div>
+      <a class="btn btn-solid" href="#">Open members directory</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="foot-brand">
+        <div class="mark">BAPI</div>
+        <p>214/D Bir Uttam Mir Shawkat Avenue, Tejgaon–Gulshan Link Road, Dhaka · +880-2-8816767</p>
+        <div class="foot-social">
+          <a href="https://www.facebook.com/BangladeshAssociationOfPharmaceuticalIndustries/" aria-label="Facebook">f</a>
+          <a href="https://twitter.com/BAPI61703299" aria-label="Twitter">X</a>
+          <a href="https://www.linkedin.com/company/bangladesh-association-of-pharmaceutical-industries/" aria-label="LinkedIn">in</a>
+        </div>
+      </div>
+      <div>
+        <h4>About us</h4>
+        <ul>
+          <li><a href="#">History of BAPI</a></li>
+          <li><a href="#">Role of BAPI</a></li>
+          <li><a href="#">Executive Committee</a></li>
+          <li><a href="#">Advisory Committee</a></li>
+          <li><a href="#">Milestones</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Government links</h4>
+        <ul>
+          <li><a href="http://www.mohfw.gov.bd/">Ministry of Health &amp; Family Welfare</a></li>
+          <li><a href="http://mof.gov.bd/en/">Ministry of Finance</a></li>
+          <li><a href="http://www.mincom.gov.bd/">Ministry of Commerce</a></li>
+          <li><a href="http://www.moind.gov.bd/">Ministry of Industries</a></li>
+          <li><a href="http://mofa.gov.bd/">Ministry of Foreign Affairs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Regulatory bodies</h4>
+        <ul>
+          <li><a href="http://www.dgda.gov.bd/">Directorate General of Drug Administration</a></li>
+          <li><a href="http://www.dghs.gov.bd/index.php/en/home">Directorate General of Health Services</a></li>
+          <li><a href="http://www.epb.gov.bd/">Export Promotion Bureau</a></li>
+          <li><a href="http://www.boi.gov.bd/">Board of Investment</a></li>
+          <li><a href="http://www.nbr.gov.bd/">National Board of Revenue</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© BAPI — Bangladesh Association of Pharmaceutical Industries</span>
+      <span>Dhaka, Bangladesh</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const toggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  toggle.addEventListener('click', () => mobileNav.classList.toggle('show'));
+
+  // Touch-friendly dropdown toggle for desktop nav
+  document.querySelectorAll('nav.primary > ul > li').forEach(li => {
+    const btn = li.querySelector('button');
+    if(!btn) return;
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.querySelectorAll('nav.primary > ul > li').forEach(other => {
+        if(other !== li) other.classList.remove('open');
+      });
+      li.classList.toggle('open');
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('nav.primary > ul > li').forEach(li => li.classList.remove('open'));
+  });
+
+  // Count-up animation, runs once when stats scroll into view
+  const counters = document.querySelectorAll('.count');
+  const animate = (el) => {
+    const target = parseFloat(el.dataset.target);
+    const duration = 1100;
+    const start = performance.now();
+    const isInt = Number.isInteger(target);
+    const step = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = target * eased;
+      el.textContent = isInt ? Math.round(val) : val.toFixed(2);
+      if(p < 1) requestAnimationFrame(step);
+      else el.textContent = isInt ? target : target;
+    };
+    requestAnimationFrame(step);
+  };
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        if(prefersReduced){ entry.target.textContent = entry.target.dataset.target; }
+        else { animate(entry.target); }
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.5});
+  counters.forEach(c => io.observe(c));
+</script>
+
+</body>
+</html>
